@@ -1,0 +1,10 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/Bio-SeqReader.t
+lib/Bio/SeqReader.pm
+lib/Bio/SeqReader/Fastq.pm
+lib/Bio/SeqReader/FastqRecord.pm
+META.yml                                 Module YAML meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)

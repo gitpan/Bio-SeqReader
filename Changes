@@ -1,0 +1,6 @@
+Revision history for Perl extension Bio::SeqReader.
+
+0.01  Tue Aug 28 19:44:55 2012
+	- original version; created by h2xs 1.23 with options
+		-X Bio::SeqReader
+
