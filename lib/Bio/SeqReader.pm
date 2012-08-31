@@ -13,7 +13,7 @@ our @ISA         = qw(Exporter);
 our %EXPORT_TAGS = ( 'all' => [qw( )] );
 our @EXPORT_OK   = ( @{ $EXPORT_TAGS{ 'all' } } );
 our @EXPORT      = qw( );
-our $VERSION     = '0.0.2';
+our $VERSION     = '0.0.3';
 
 # Preloaded methods go here.
 

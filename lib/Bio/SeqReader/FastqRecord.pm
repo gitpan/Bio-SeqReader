@@ -78,6 +78,29 @@ sub new {
 
 =over 12
 
+=item C<display_id>
+
+Getter for the display id associated with a Bio::SeqReader::FastqRecord object.
+Makes use of the current contents of header 1.
+
+ print $so->display_id();     # => AC12345.6
+
+=back
+
+=cut
+
+sub display_id {
+    my $self = shift;
+
+    my $display_id = $self->{_HEADER1};
+    $display_id =~ s/\s+.*//;
+
+    return $display_id;
+
+}
+
+=over 12
+
 =item C<header1>
 
 Getter-setter for the first header text from a Bio::SeqReader::FastqRecord object.
@@ -211,7 +234,7 @@ Bio::SeqReader::Fastq.
 
 =head1 AUTHOR
 
-John A. Crow E<lt>crowja@gmail.comE<gt>
+John A. Crow E<lt>jac@ncgr.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

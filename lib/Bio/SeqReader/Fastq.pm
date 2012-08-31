@@ -43,16 +43,22 @@ use Bio::SeqReader::FastqRecord;
 
 Returns a new Bio::SeqReader::Fastq object.
 
- # From filehandle
- my $in1 = new Bio::SeqReader::Fastq( fh => 'infile.fq.gz' );
+ # From an IO::File filehandle
+ my $fh1 = new IO::File( 'in.fq' );
+ my $in1 = new Bio::SeqReader::Fastq( fh => $fh1);
+
+ # From an IO::Uncompress::AnyUncompress filehandle
+ my $fh2 = new IO::File( 'in.fq.gz' );
+ my $in2 = new Bio::SeqReader::Fastq( fh => $fh2);
 
  # From stdin
- my $in2 = new Bio::SeqReader::Fastq();
+ my $in3 = new Bio::SeqReader::Fastq();
 
 A filehandle must be compatible with those produced by IO::File filehandle; for example,
 
  $fh1 = new IO::File( 'in.fastq' )
- $fh2 = new IO::Uncompress::AnyUncompress( 'in.fastq.gz' ).
+ $fh2 = new IO::Uncompress::AnyUncompress( 'in.fastq.gz' )
+ $fh3 = new IO::Uncompress::AnyUncompress( 'in.fastq' ).
 
 =back
 
@@ -135,7 +141,10 @@ sub next {
             die if length $self->{ _QUALTEXT } > length $self->{ _SEQTEXT };
 
             if ( length $self->{ _QUALTEXT } == length $self->{ _SEQTEXT } ) {
+                my $id = $self->{_HEADER1};
+                $id =~ s/\s+.*//;
                 my $so = new Bio::SeqReader::FastqRecord;
+                $so->display_id($id);
                 $so->seq( $self->{ _SEQTEXT } );
                 $so->quals( $self->{ _QUALTEXT } );
                 $so->header1( $self->{ _HEADER1 } );
@@ -164,7 +173,7 @@ Bio::SeqReader::FastqRecord.
 
 =head1 AUTHOR
 
-John A. Crow E<lt>crowja@gmail.comE<gt>
+John A. Crow E<lt>jac@ncgr.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
