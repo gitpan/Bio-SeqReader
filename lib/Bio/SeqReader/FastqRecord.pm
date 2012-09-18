@@ -84,7 +84,7 @@ sub new {
 Getter for the display id associated with a Bio::SeqReader::FastqRecord object.
 Makes use of the current contents of header 1.
 
-  print $so->display_id();   # => AC12345.6
+  print $so->display_id();   # => R_12345 
 
 =back
 
@@ -178,7 +178,8 @@ sub quals {
 
 =item B<reset()>
 
-Reset a Bio::SeqReader::FastqRecord object.
+Reset a Bio::SeqReader::FastqRecord object. Basically sets all internal
+data to empty strings.
 
 =back
 
@@ -229,7 +230,7 @@ None reported yet, but let me know.
 
 =head1 SEE ALSO
 
-Bio::SeqReader::Fastq.
+Bio::SeqReader::Fastq, Bio::SeqReader.
 
 =head1 AUTHOR
 

@@ -13,7 +13,7 @@ our @ISA         = qw(Exporter);
 our %EXPORT_TAGS = ( 'all' => [qw( )] );
 our @EXPORT_OK   = ( @{ $EXPORT_TAGS{ 'all' } } );
 our @EXPORT      = qw( );
-our $VERSION     = '0.1.0';
+our $VERSION     = '0.1.1';
 
 # Preloaded methods go here.
 
@@ -30,8 +30,8 @@ Bio::SeqReader - Classes for reading sequence data.
 
   use Bio::SeqReader;
 
-  # Read a FASTQ file from stdin
-  my $in = new Bio::SeqReader::Fastq();
+  # Read a FASTA file from stdin
+  my $in = new Bio::SeqReader::Fasta();
   while ( my $so = $in->next() ) {
       . . .
   }
@@ -62,7 +62,7 @@ None by default.
 
 =head1 SEE ALSO
 
-Bio::SeqReader::Fastq, Bio::SeqReader::FastqRecord.
+Bio::SeqReader::Fasta, Bio::SeqReader::FastaRecord, Bio::SeqReader::Fastq, Bio::SeqReader::FastqRecord
 
 =head1 AUTHOR
 

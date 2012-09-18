@@ -9,9 +9,9 @@ Bio::SeqReader::Fastq - Class providing a reader for files in FASTQ format.
 =head1 SYNOPSIS
 
   use Bio::SeqReader::Fastq;
-  my $in1 = new Bio::SeqReader::Fastq();          # from stdin
+  my $in1 = new Bio::SeqReader::Fastq();             # from stdin
   my $fh = ...
-  my $in2 = new Bio::SeqReader::Fastq( $fh );     # from $fh
+  my $in2 = new Bio::SeqReader::Fastq( fh => $fh );  # from filehandle
 
 =head1 DESCRIPTION
 
@@ -19,8 +19,8 @@ Bio::SeqReader::Fastq provides a method for reading a file or stream in FASTQ fo
 
 This format is described in P. J. A. Cock, C. J. Fields, N. Goto, M. L. Heuer,
 P. M. Rice. (2010) I<The Sanger FASTQ file format for sequences with quality scores, and
-the Solexa/Illumna FASTQ variants>, Nucleic Acids Research 38. It specifically allows for multiline
-sequence and quality score information which are handled correctly by this class.
+the Solexa/Illumina FASTQ variants>, Nucleic Acids Research 38. It specifically allows for multiline
+sequence and quality score information, which are handled correctly by this class.
 
 =head1 CLASS METHODS
 
@@ -40,7 +40,9 @@ use Bio::SeqReader::FastqRecord;
 
 =item B<new()>
 
-Returns a new Bio::SeqReader::Fastq object associated with stdin or with a filehandle.
+Constructor. Returns a new Bio::SeqReader::Fastq object associated with stdin (by default)
+or with a filehandle. Understands optional specification of an IO::File-compatible filehandle
+via C<< fh => $fh >>.
 
   # From an IO::File filehandle
   my $fh1 = new IO::File( 'in.fq' );
@@ -184,7 +186,7 @@ None reported yet, but let me know.
 
 =head1 SEE ALSO
 
-Bio::SeqReader::FastqRecord.
+Bio::SeqReader::FastqRecord, Bio::SeqReader.
 
 =head1 AUTHOR
 

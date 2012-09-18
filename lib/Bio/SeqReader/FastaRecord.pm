@@ -21,7 +21,7 @@ description, and sequence information in FASTA records.
 
   my $so = new Bio::SeqReader::FastaRecord();
   $so->seq( 'ACGTACGT' );
-  print $so->seq();       # ACGTACGT
+  print $so->seq();       # => ACGTACGT
 
 =head1 DESCRIPTION
 
@@ -179,11 +179,11 @@ None reported yet, but let me know.
 
 =head1 SEE ALSO
 
-Bio::SeqReader::Fasta.
+Bio::SeqReader::Fasta, Bio::SeqReader.
 
 =head1 AUTHOR
 
-John A. Crow E<lt>crowja_at_gmail_dot_comE<gt>
+John A. Crow E<lt>jac_at_cpan_dot_orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
