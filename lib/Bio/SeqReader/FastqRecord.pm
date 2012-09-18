@@ -4,6 +4,7 @@ package Bio::SeqReader::FastqRecord;
 
 sub header1;
 sub header2;
+sub new;
 sub quals;
 sub reset;
 sub seq;
@@ -15,13 +16,13 @@ sequence, and quality information in FASTQ records.
 
 =head1 SYNOPSIS
 
-   use Bio::SeqReader::FastqRecord;
+  use Bio::SeqReader::FastqRecord;
 
 =head1 EXAMPLES
 
-   my $so = new Bio::SeqReader::FastqRecord();
-   $so->seq( 'ACGTACGT' );
-   print $so->seq();       # ACGTACGT
+  my $so = new Bio::SeqReader::FastqRecord();
+  $so->seq( 'ACGTACGT' );
+  print $so->seq();       # ACGTACGT
 
 =head1 DESCRIPTION
 
@@ -42,15 +43,15 @@ use strict;
 
 =over 12
 
-=item C<new>
+=item B<new()>
 
 Returns a new Bio::SeqReader::FastqRecord object.
 
- # Void constructor
- my $so = new Bio::SeqReader::FastqRecord();
+  # Void constructor
+  my $so = new Bio::SeqReader::FastqRecord();
 
- # Constructor with initial values
- my $so = new Bio::SeqReader::FastqRecord(
+  # Constructor with initial values
+  my $so = new Bio::SeqReader::FastqRecord(
                   header1     => 'R_12345 read info ...',
                   seqtext     => 'ACGTACGT',
                   header2     => '',
@@ -78,12 +79,12 @@ sub new {
 
 =over 12
 
-=item C<display_id>
+=item B<display_id()>
 
 Getter for the display id associated with a Bio::SeqReader::FastqRecord object.
 Makes use of the current contents of header 1.
 
- print $so->display_id();     # => AC12345.6
+  print $so->display_id();   # => AC12345.6
 
 =back
 
@@ -92,7 +93,7 @@ Makes use of the current contents of header 1.
 sub display_id {
     my $self = shift;
 
-    my $display_id = $self->{_HEADER1};
+    my $display_id = $self->{ _HEADER1 };
     $display_id =~ s/\s+.*//;
 
     return $display_id;
@@ -101,12 +102,12 @@ sub display_id {
 
 =over 12
 
-=item C<header1>
+=item B<header1()>
 
 Getter-setter for the first header text from a Bio::SeqReader::FastqRecord object.
 
- $so->header1( 'R_12345 read info ...' );
- print $so->header1();     # => R_12345 read info
+  $so->header1( 'R_12345 read info ...' );
+  print $so->header1();   # => R_12345 read info
 
 =back
 
@@ -126,12 +127,12 @@ sub header1 {
 
 =over 12
 
-=item C<header2>
+=item B<header2()>
 
 Getter-setter for the second header text from a Bio::SeqReader::FastqRecord object.
 
- $so->header2( 'second header info ...' );
- print $so->header2();     # => second header info ...
+  $so->header2( 'second header info ...' );
+  print $so->header2();   # => second header info ...
 
 =back
 
@@ -151,12 +152,12 @@ sub header2 {
 
 =over 12
 
-=item C<quals>
+=item B<quals()>
 
 Getter-setter for the quality text from a Bio::SeqReader::FastqRecord object.
 
- $so->quals( 'A@AA?#??' );
- print $so->quals();     # => A@AA?#??
+  $so->quals( 'A@AA?#??' );
+  print $so->quals();   # => A@AA?#??
 
 =back
 
@@ -175,7 +176,7 @@ sub quals {
 
 =over 12
 
-=item C<reset>
+=item B<reset()>
 
 Reset a Bio::SeqReader::FastqRecord object.
 
@@ -194,12 +195,12 @@ sub reset {
 
 =over 12
 
-=item C<seq>
+=item B<seq()>
 
 Getter-setter for the sequence text from a Bio::SeqReader::FastqRecord object.
 
- $so->seq( 'ACGTACGT' );
- print $so->seq();     # => ACGTACGT
+  $so->seq( 'ACGTACGT' );
+  print $so->seq();   # => ACGTACGT
 
 =back
 
@@ -222,8 +223,6 @@ sub seq {
 
 Perl core.
 
-=head1 EXAMPLES
-
 =head1 BUGS
 
 None reported yet, but let me know.
@@ -234,16 +233,17 @@ Bio::SeqReader::Fastq.
 
 =head1 AUTHOR
 
-John A. Crow E<lt>jac@ncgr.orgE<gt>
+John A. Crow E<lt>jac_at_cpan_dot_orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
-
-  Copyright (C) 2012 by John A. Crow
-  Copyright (C) 2012 by National Center for Genome Resources
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,
 at your option, any later version of Perl 5 you may have available.
+
+  Copyright (C) 2012 by John A. Crow
+  Copyright (C) 2012 by National Center for Genome Resources
+
 
 =cut
 

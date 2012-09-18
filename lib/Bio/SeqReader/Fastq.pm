@@ -8,21 +8,19 @@ Bio::SeqReader::Fastq - Class providing a reader for files in FASTQ format.
 
 =head1 SYNOPSIS
 
-   use Bio::SeqReader::Fastq;
-   my $in1 = new Bio::SeqReader::Fastq();          # from stdin
-   my $fh = ...
-   my $in2 = new Bio::SeqReader::Fastq( $fh );     # from $fh
-
-=head1 EXAMPLES
+  use Bio::SeqReader::Fastq;
+  my $in1 = new Bio::SeqReader::Fastq();          # from stdin
+  my $fh = ...
+  my $in2 = new Bio::SeqReader::Fastq( $fh );     # from $fh
 
 =head1 DESCRIPTION
 
 Bio::SeqReader::Fastq provides a method for reading a file or stream in FASTQ format.
 
-This format [as described in Cock PJA, Fields CJ, Goto N, Heuer ML,
-Rice PM. (2010) "The Sanger FASTQ file format for sequences with quality scores, and
-the Solexa/Illumna FASTQ variants," Nucleic Acids Research 38] allows for multiline
-sequence and quality score information, and is handled correctly by this class.
+This format is described in P. J. A. Cock, C. J. Fields, N. Goto, M. L. Heuer,
+P. M. Rice. (2010) I<The Sanger FASTQ file format for sequences with quality scores, and
+the Solexa/Illumna FASTQ variants>, Nucleic Acids Research 38. It specifically allows for multiline
+sequence and quality score information which are handled correctly by this class.
 
 =head1 CLASS METHODS
 
@@ -35,30 +33,31 @@ Bio::SeqReader::Fastq provides the following instance methods.
 =cut
 
 use strict;
+use IO::Handle;
 use Bio::SeqReader::FastqRecord;
 
 =over 12
 
-=item C<new>
+=item B<new()>
 
-Returns a new Bio::SeqReader::Fastq object.
+Returns a new Bio::SeqReader::Fastq object associated with stdin or with a filehandle.
 
- # From an IO::File filehandle
- my $fh1 = new IO::File( 'in.fq' );
- my $in1 = new Bio::SeqReader::Fastq( fh => $fh1);
+  # From an IO::File filehandle
+  my $fh1 = new IO::File( 'in.fq' );
+  my $in1 = new Bio::SeqReader::Fastq( fh => $fh1);
 
- # From an IO::Uncompress::AnyUncompress filehandle
- my $fh2 = new IO::File( 'in.fq.gz' );
- my $in2 = new Bio::SeqReader::Fastq( fh => $fh2);
+  # From an IO::Uncompress::AnyUncompress filehandle
+  my $fh2 = new IO::File( 'in.fq.gz' );
+  my $in2 = new Bio::SeqReader::Fastq( fh => $fh2);
 
- # From stdin
- my $in3 = new Bio::SeqReader::Fastq();
+  # From stdin
+  my $in3 = new Bio::SeqReader::Fastq();
 
-A filehandle must be compatible with those produced by IO::File filehandle; for example,
+A specified filehandle must be compatible with those produced by IO::File filehandle; for example,
 
- $fh1 = new IO::File( 'in.fastq' )
- $fh2 = new IO::Uncompress::AnyUncompress( 'in.fastq.gz' )
- $fh3 = new IO::Uncompress::AnyUncompress( 'in.fastq' ).
+  $fh1 = new IO::File( 'in.fastq' )
+  $fh2 = new IO::Uncompress::AnyUncompress( 'in.fastq.gz' )
+  $fh3 = new IO::Uncompress::AnyUncompress( 'in.fastq' ).
 
 =back
 
@@ -85,13 +84,13 @@ sub new {
 
 =over 12
 
-=item C<next>
+=item B<next()>
 
 Returns the next sequence as a Bio::SeqReader::FastqRecord object.
 
- while ( my $so = $in->next() ) {
-     # work with $so here
- }
+  while ( my $so = $in->next() ) {
+      ... work with $so here ...
+  }
 
 =back
 
@@ -141,10 +140,10 @@ sub next {
             die if length $self->{ _QUALTEXT } > length $self->{ _SEQTEXT };
 
             if ( length $self->{ _QUALTEXT } == length $self->{ _SEQTEXT } ) {
-                my $id = $self->{_HEADER1};
+                my $id = $self->{ _HEADER1 };
                 $id =~ s/\s+.*//;
-                my $so = new Bio::SeqReader::FastqRecord;
-                $so->display_id($id);
+                my $so = new Bio::SeqReader::FastqRecord();
+                $so->display_id( $id );
                 $so->seq( $self->{ _SEQTEXT } );
                 $so->quals( $self->{ _QUALTEXT } );
                 $so->header1( $self->{ _HEADER1 } );
@@ -163,6 +162,22 @@ Perl core.
 
 =head1 EXAMPLES
 
+  # Open and read a file in FASTQ format
+  my $fh = new IO::File( 'foo.fastq' );
+  my $in = new Bio::SeqReader( fh => $fh );
+  while ( my $so = $in->next() ) {
+      my $s = $so->seq();   # $so is a Bio::SeqReader::FastqRecord
+      . . .
+  }
+
+  # Open and read a gzipped file in FASTQ format
+  my $fh = new IO::Uncompress::AnyUncompress( 'foo.fastq.gz' );
+  my $in = new Bio::SeqReader( fh => $fh );
+  while ( my $so = $in->next() ) {
+      my $s = $so->seq();   # $so is a Bio::SeqReader::FastqRecord
+      . . .
+  }
+
 =head1 BUGS
 
 None reported yet, but let me know.
@@ -173,16 +188,16 @@ Bio::SeqReader::FastqRecord.
 
 =head1 AUTHOR
 
-John A. Crow E<lt>jac@ncgr.orgE<gt>
+John A. Crow E<lt>jac_at_cpan_dot_orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
-
-  Copyright (C) 2012 by John A. Crow
-  Copyright (C) 2012 by National Center for Genome Resources
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,
 at your option, any later version of Perl 5 you may have available.
+
+  Copyright (C) 2012 by John A. Crow
+  Copyright (C) 2012 by National Center for Genome Resources
 
 =cut
 

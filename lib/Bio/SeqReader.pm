@@ -13,7 +13,7 @@ our @ISA         = qw(Exporter);
 our %EXPORT_TAGS = ( 'all' => [qw( )] );
 our @EXPORT_OK   = ( @{ $EXPORT_TAGS{ 'all' } } );
 our @EXPORT      = qw( );
-our $VERSION     = '0.0.3';
+our $VERSION     = '0.1.0';
 
 # Preloaded methods go here.
 
@@ -30,6 +30,28 @@ Bio::SeqReader - Classes for reading sequence data.
 
   use Bio::SeqReader;
 
+  # Read a FASTQ file from stdin
+  my $in = new Bio::SeqReader::Fastq();
+  while ( my $so = $in->next() ) {
+      . . .
+  }
+
+  # Read a FASTQ file from an IO::File filehandle
+  my $fh = new IO::File( 'foo.fastq' );
+  my $in = new Bio::SeqReader::Fastq( fh => $fh );
+  while ( my $so = $in->next() ) {
+      . . .
+  }
+
+  # Filehandles created by IO::Uncompress::AnyUncompress are compatible with
+  # IO::File filehandles.
+  my $fh = new IO::Uncompress::AnyUncompress( 'foo.fastq.gz' );
+  my $in = new Bio::SeqReader::Fastq( fh => $fh );
+  while ( my $so = $in->next() ) {
+      . . .
+  }
+
+
 =head1 DESCRIPTION
 
 The Bio::SeqReader package provides classes specifically for reading sequence data.
@@ -44,16 +66,15 @@ Bio::SeqReader::Fastq, Bio::SeqReader::FastqRecord.
 
 =head1 AUTHOR
 
-John A. Crow, E<lt>jac@ncgr.orgE<gt>
+John A. Crow, E<lt>jac_at_cpan_dot_orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
-
-  Copyright (C) 2012 by John A. Crow.
-  Copyright (C) 2012 by National Center for Genome Resources.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,
 at your option, any later version of Perl 5 you may have available.
 
+  Copyright (C) 2012 by John A. Crow.
+  Copyright (C) 2012 by National Center for Genome Resources.
 
 =cut
