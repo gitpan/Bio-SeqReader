@@ -19,7 +19,7 @@ will handle this correctly.
 Bio::SeqReader::Fastq
 The FASTQ format is described formally in P. J. A. Cock, C. J. Fields, N. Goto,
 M. L. Heuer, P. M. Rice. (2010) "The Sanger FASTQ file format for sequences with
-quality scores, and the Solexa/Illumna FASTQ variants," Nucleic Acids Research
+quality scores, and the Solexa/Illumina FASTQ variants," Nucleic Acids Research
 38. Note that it specifically allows for multiline sequence and quality score
 information, and Bio::SeqReader::Fastq is designed to handle this correctly.
 

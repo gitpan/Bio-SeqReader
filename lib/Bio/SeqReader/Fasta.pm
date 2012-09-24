@@ -9,9 +9,9 @@ Bio::SeqReader::Fasta - Class providing a reader for files in FASTA format.
 =head1 SYNOPSIS
 
   use Bio::SeqReader::Fasta;
-  my $in1 = new Bio::SeqReader::Fasta();          # from stdin
+  my $in1 = new Bio::SeqReader::Fasta();             # from stdin
   my $fh = ...
-  my $in2 = new Bio::SeqReader::Fasta( $fh );     # from $fh
+  my $in2 = new Bio::SeqReader::Fasta( fh => $fh );  # from filehandle
 
 =head1 DESCRIPTION
 
